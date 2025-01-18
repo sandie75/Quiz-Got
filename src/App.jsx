@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('https://api.example.com/data')
+      .get('https://api.gameofthronesquotes.xyz/v1/author/arya/5')
       .then((response) => {
         setData(response.data);
         setLoading(false);
