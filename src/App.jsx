@@ -1,8 +1,7 @@
 import React from 'react';
-import FetchQuote from './components/fetchquote/FetchQuote';
-import { questions } from './constants';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css'
+import { fetchData } from './constants';
 
 function App() {
   const [currentquestion, setCurrentQuestion] = useState(0)
@@ -10,17 +9,20 @@ function App() {
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [score, setScore] = useState(0)
   const [showScore, setShowscore] = useState(false)
+  const [questions, setQuestions] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   const NextQuestion = () => {
-    setAnswered(false)
-    setSelectedAnswer(null)
-    const nextQuestion = currentquestion + 1
+    setAnswered(false);
+    setSelectedAnswer(null);
+    const nextQuestion = currentquestion + 1;
     if(nextQuestion < questions.length){
       setCurrentQuestion(nextQuestion)
     }else{
-      setShowscore(true)
+      setShowscore(true);
     }
-  }
+  };
 
   const handleAnswer = (index, isCorrect) => {
     setAnswered(true)
@@ -30,32 +32,58 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const generatedQuestions = await fetchData();
+        setQuestions(generatedQuestions);
+        setLoading(false);
+      } catch (error) {
+        console.error("Erreur lors du chargement des questions :", error);
+        setError("Impossible de charger les questions.")
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchQuestions();
+  }, []);
+
   return (
     <div className="App">
       <div>
         <div>Quiz Game of Thrones</div>
-        {showScore ? <div>You scored {score} of {questions.length}</div> : 
-          <div>
-            <div>{questions[currentquestion].questionText}</div>
-            {questions[currentquestion].answerOptions.map(
-              (option, index) => (
-                <button onClick={() => handleAnswer(index, option.isCorrect)} className =  {`${answered ? 
-                  option.isCorrect ?
-                  "correct"
-                  : selectedAnswer === index ?
-                  " incorrect"
+        {loading ? 
+          (<div>Chargement...</div>) 
+          : error ? (<div className = 'error'>{error}</div>)
+          : showScore ? <div>You scored {score} of {questions.length}</div> 
+          : (
+            <div>
+              <div>{questions[currentquestion].questionText}</div>
+              {questions[currentquestion].answerOptions.map(
+                (option, index) => (
+                  <button 
+                  key={index} 
+                  onClick={() => handleAnswer(index, option.isCorrect)} className =  {`${answered ? 
+                    option.isCorrect ?
+                    "correct"
+                    : selectedAnswer === index ?
+                    " incorrect"
+                    : "default"
                   : "default"
-                : "default"
-                }`}>{option.answerText}</button>
-              ))
-            }
-            <button disabled = {answered ? "" : "disabled"} onClick={NextQuestion}>Next question</button>
-            <p>Question {currentquestion +1} of {questions.length}</p>
-          </div>
-        }
-      </div>
+                  }`}>
+                    {option.answerText}
+                  </button>
+                ))
+              }
+              <button disabled = {!answered} onClick={NextQuestion}>Next question</button>
+              <p>Question {currentquestion +1} of {questions.length}</p>
+            </div>
+        )}
+      </div>  
     </div>
-  );
+);
 }
 
 export default App;
