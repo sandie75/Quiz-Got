@@ -1,11 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.app{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.app-container{
+    width: 100%;
+    max-width: 360px;
+    background-color: white;
+    box-shadow: 0px 0px 10px grey;
+    padding: 25px;
+    border-radius: 5px;
+}
+.title{
+    padding: 2px 2px 8px 2px;
+    border-bottom: solid lightgrey 1px;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-family: 'Poppins';
+    color: #303030;
+}
+.questionText{
+    color: #303030;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
 .correct{
-    background-color: green;
+    background-color: lightgreen;
 }
 .incorrect{
-    background-color: red;
+    background-color: lightpink
 }
 .default{
-    background-color: grey;
+    background-color: white;
 }
+button{
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    margin-top: 10px;
+    border-radius: 3px;
+    border: solid lightgrey 1px;
+}
+button:hover{
+    cursor: pointer;
+}
+.submit{
+    background-color: #00ca02;
+    color: white;
+    margin-top: 15px;
+
+}
+.submit:disabled{
+    background-color: #cafbca;
+    cursor: default;
+}
+.whichQuestion{
+    text-align: center;
+    color: grey;
+    font-size: small;
+}
+
 
 
