@@ -1,10 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
 .app{
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-image: url('../public/images/kingsLanding.png');
+    background-size: cover;
+
 }
 .app-container{
     width: 100%;
@@ -13,10 +23,13 @@
     box-shadow: 0px 0px 10px grey;
     padding: 25px;
     border-radius: 5px;
+    background: rgba(255,255,255, 0.8);
+    border: solid lightgrey 1px;
+
 }
 .title{
     padding: 2px 2px 8px 2px;
-    border-bottom: solid lightgrey 1px;
+    border-bottom: solid grey 1px;
     text-align: center;
     font-weight: 700;
     margin-bottom: 10px;
@@ -25,9 +38,10 @@
     color: #303030;
 }
 .questionText{
-    color: #303030;
+    color: black;
     margin-bottom: 20px;
     margin-top: 15px;
+    font-family: 'Lato';
 }
 .correct{
     background-color: lightgreen;
@@ -45,6 +59,7 @@ button{
     margin-top: 10px;
     border-radius: 3px;
     border: solid lightgrey 1px;
+    font-family: 'Poppins';
 }
 button:hover{
     cursor: pointer;
@@ -61,8 +76,10 @@ button:hover{
 }
 .whichQuestion{
     text-align: center;
-    color: grey;
+    color: #303030;
     font-size: small;
+    font-family: 'Poppins';
+    font-size: 12px;
 }
 
 
