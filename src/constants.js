@@ -26,7 +26,7 @@ export const fetchData = async () => {
             console.log("options de personnages incorrects:", wrongOptions)
 
             const newQuestion = {
-                questionText: `Who said: "${quoteData.sentence}"?`,
+                questionText: `Who said : "${quoteData.sentence}" ?`,
                 answerOptions: [
                   { answerText: correctCharacter, isCorrect: true },
                   ...wrongOptions.map((name) => ({ answerText: name, isCorrect: false })), /* les "..." sont pour insérer le contenu du tableau wrongOptions dans le tableau, et pas le tableau entier.*/

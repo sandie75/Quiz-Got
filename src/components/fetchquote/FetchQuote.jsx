@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+/*import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
@@ -38,4 +38,4 @@ function FetchQuote() {
   );
 
 }
-export default FetchQuote;
+export default FetchQuote;*/

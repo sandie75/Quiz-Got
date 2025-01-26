@@ -13,73 +13,91 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  const NextQuestion = () => {
-    setAnswered(false);
-    setSelectedAnswer(null);
-    const nextQuestion = currentquestion + 1;
-    if(nextQuestion < questions.length){
-      setCurrentQuestion(nextQuestion)
-    }else{
-      setShowscore(true);
-    }
-  };
-
   const handleAnswer = (index, isCorrect) => {
-    setAnswered(true)
-    setSelectedAnswer(index)
-    if(isCorrect){
+    setSelectedAnswer(index)//stocker l'index de la réponse choisie
+    /*if(isCorrect){
       setScore(score +1)
+    }*/
+  }
+
+  const handleSubmit = () => {
+    if (selectedAnswer === null) return;
+    setAnswered(true); //activer les couleurs pour les réponses.
+    const isCorrect = questions[currentquestion].answerOptions[selectedAnswer].isCorrect;
+    if (isCorrect){
+      setScore(score + 1)
     }
+
+    /*Ici, on passe à la question suivante après un délai:*/
+    setTimeout(() => {
+      const nextQuestion = currentquestion + 1;
+        if (nextQuestion < questions.length) {
+          setCurrentQuestion(nextQuestion);
+          setAnswered(false);
+          setSelectedAnswer(null);
+        } else {
+          setShowscore(true);
+        }
+      }, 2000);
   }
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const generatedQuestions = await fetchData();
-        setQuestions(generatedQuestions);
-        setLoading(false);
+          const generatedQuestions = await fetchData();
+          setQuestions(generatedQuestions);
+          setLoading(false);
       } catch (error) {
         console.error("Erreur lors du chargement des questions :", error);
-        setError("Impossible de charger les questions.")
-        setLoading(false);
-      } finally {
+        setError("Impossible de charger les questions.");
         setLoading(false);
       }
     };
-  
+    
+    /*Ici, on évite d'avoir plusieurs demandes à l'API. */
+    if(questions.length === 0){
     fetchQuestions();
-  }, []
-  );
+    }
+  }, [questions]);
 
   return (
-    <div className="App">
-      <div>
-        <div>Quiz Game of Thrones</div>
+    <div className="app">
+      <div className="app-container">
+        <div className="title">Game of Thrones quiz</div>
         {loading ? 
           (<div>Chargement...</div>) 
           : error ? (<div className = 'error'>{error}</div>)
-          : showScore ? <div>You scored {score} of {questions.length}</div> 
+          : showScore ? (<div>You scored {score} of {questions.length}</div> )
           : (
             <div>
-              <div>{questions[currentquestion].questionText}</div>
+              <div className="questionText">{questions[currentquestion].questionText}</div>
               {questions[currentquestion].answerOptions.map(
                 (option, index) => (
                   <button 
                   key={index} 
-                  onClick={() => handleAnswer(index, option.isCorrect)} className =  {`${answered ? 
+                  onClick={() => handleAnswer(index)} 
+                  className = {`${answered ? 
                     option.isCorrect ?
                     "correct"
                     : selectedAnswer === index ?
                     " incorrect"
                     : "default"
-                  : "default"
+                  : selectedAnswer === index ?"selected": "default"
                   }`}>
                     {option.answerText}
                   </button>
                 ))
               }
-              <button disabled = {!answered} onClick={NextQuestion}>Next question</button>
-              <p>Question {currentquestion +1} of {questions.length}</p>
+              <button 
+                className="submit" 
+                disabled = {selectedAnswer === null || answered} 
+                onClick={handleSubmit}>
+                  Submit
+              </button>
+              <p 
+              className="whichQuestion">
+                Question {currentquestion +1} of {questions.length}
+              </p>
             </div>
         )}
       </div>  
@@ -88,8 +106,6 @@ function App() {
 }
 
 export default App;
-
-/*handleAnswerOption = handleAnswer */
 
 /*{questions[0].questionText}: On accède au premier élément (index 0) d'un tableau nommé questions.
 On accède à la propriété questionText de cet élément. */
