@@ -48,7 +48,8 @@ function App() {
     };
   
     fetchQuestions();
-  }, []);
+  }, []
+  );
 
   return (
     <div className="App">
