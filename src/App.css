@@ -14,7 +14,7 @@ html, body {
     height: 100vh;
     background-image: url('../public/images/kingsLanding.png');
     background-size: cover;
-
+    position: relative;
 }
 .app-container{
     width: 100%;

@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './App.css'
 import { fetchData } from './constants';
+import Credits from './components/credits/Credits'
 
 function App() {
   const [currentquestion, setCurrentQuestion] = useState(0)
@@ -100,7 +101,8 @@ function App() {
               </p>
             </div>
         )}
-      </div>  
+      </div> 
+      <Credits/> 
     </div>
 );
 }

@@ -1,0 +1,10 @@
+.credits{
+    color: white;
+    font-size: 14px;
+    font-family: sans-serif;
+}
+.creditsContainer{
+    position: absolute;
+    right: 10px;
+    bottom: 0px;
+}
